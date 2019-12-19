@@ -23,7 +23,14 @@
   "homepage": "https://github.com/necccc/triangle-haiku#readme",
   "devDependencies": {
     "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-json-strings": "^7.7.4",
+    "@babel/plugin-proposal-private-methods": "^7.7.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.7.4",
+    "@babel/plugin-syntax-import-meta": "^7.7.4",
+    "@babel/plugin-transform-regenerator": "^7.7.5",
     "@babel/preset-env": "^7.7.7",
+    "@babel/preset-stage-3": "^7.0.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.4.0",
     "node-sass": "^4.13.0",
@@ -31,5 +38,10 @@
     "style-loader": "^1.0.2",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "core-js": "^3.6.0",
+    "fabric": "^3.5.1",
+    "regenerator-runtime": "^0.13.3"
   }
 }
