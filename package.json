@@ -1,0 +1,35 @@
+{
+  "name": "triangle-haiku",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "prestart": "docker-compose up -d",
+    "start": "npm run build",
+    "poststart": "docker-compose down",
+    "build": "npx webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/necccc/triangle-haiku.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/necccc/triangle-haiku/issues"
+  },
+  "homepage": "https://github.com/necccc/triangle-haiku#readme",
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.2",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10"
+  }
+}

@@ -1,0 +1,21 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #fefefe;
+
+  font: {
+    family: sans-serif;
+    size: 18px;
+  }
+}
+
+canvas {
+  margin: 1rem;
+  box-shadow: 0 0 1px hsla(0, 0%, 0%, .5);
+}
+
+#C {
+  width: calc(100vw - 2rem);
+  height: calc(100vh - 2rem);
+}
