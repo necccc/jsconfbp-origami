@@ -42,15 +42,42 @@ export class Grid {
     }
   }
 
+  * values() {
+    let y = 0
+
+    for (y ; y < this.y ; y++) {
+      let x = 0
+
+      for (x;x < this.x; x++) {
+        yield {
+          x,
+          y,
+          value: this.#grid[x][y]
+        }
+      }
+    }
+  }
+
+  contentOf(x, y) {
+    return this.#grid[x][y]
+  }
+
   coordsOf(x, y) {
     const { size } = this.#options
     const distance = Math.sqrt(2 * (size ** 2))
 
     return {
       x: (distance + (x * distance)) - (distance * 0.5 * (y % 2)),
-      //x: (distance + (x * distance)),
       y: (distance / 2) + (y * (distance / 2)),
+      __coords: [x,y]
     }
+  }
+
+  addTo(x, y, data) {
+    if (this.#grid[x][y].length === 0) {
+      this.#grid[x][y] = []
+    }
+    this.#grid[x][y].push(data)
   }
 
   getSurroundingPoints(x, y) {
@@ -101,6 +128,15 @@ export class Grid {
       }
     }
 
-    return result
+
+    return result.filter(coords => {
+      console.log('getSurroundingPoints', this.contentOf(...coords).length);
+
+      console.log(this.contentOf(...coords).length);
+
+
+
+      return this.contentOf(...coords).length < 4
+    })
   }
 }
