@@ -11,7 +11,7 @@ import settings from './settings'
 
 
 const pickColor = () => pick(settings.colors)
-
+/*
 const renderSurrounding = (arr, grid, canvas) => {
   arr.forEach(([a,b]) => {
     const {x,y} = grid.coordsOf(a,b)
@@ -27,6 +27,8 @@ const renderSurrounding = (arr, grid, canvas) => {
 const showSurroundings = (X,Y, grid, canvas) => {
   renderSurrounding(grid.getSurroundingPoints(X, Y), grid, canvas)
 }
+ */
+
 
 const toPolygonPoints = (...corners) => corners.reduce((arr, points) => {
   arr.push(points)
@@ -81,10 +83,10 @@ const drawTriangleAt = (x, y, grid, canvas) => {
     size: settings.grid.edgeDistance
   })
 
-  //grid.debug(canvas);
-
-  const start = [2,1]
+  // grid.debug(canvas);
+  const start = [5,6]
   const notStart = (p) => (p[0] !== start[0] && p[1] !== start[1])
+
 
   let c = drawTriangleAt(...start, grid, canvas)
 
@@ -125,3 +127,20 @@ const drawTriangleAt = (x, y, grid, canvas) => {
 
 
 
+
+
+
+/*
+
+  input text
+  first N letter
+  letter by letter
+
+
+  each draw is a promise
+  chain together with inputs
+
+  triangle calc random func is seeded with input letter,
+  passed in to triangle.from
+
+*/

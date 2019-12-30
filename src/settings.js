@@ -15,12 +15,13 @@ export default {
     '#552A80',
   ],
   canvas: {
-    width: 300,
+    width: 1200,
     height: 1024,
   },
   grid: {
-    x: 3,
-    y: 16,
+    x: 34,
+    //x: 3,
+    y: 24,
     edgeDistance: 64,
   },
 }
