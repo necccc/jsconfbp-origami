@@ -8,7 +8,7 @@
     "start": "npm run dev",
     "poststart": "docker-compose down",
     "dev": "NODE_ENV=development npx webpack",
-    "prebuild": "npm i",
+    "prebuild": "npm ci",
     "build": "NODE_ENV=production npx webpack",
     "postbuild": "npm run cp",
     "cp": "cp index.html dist/",
@@ -25,7 +25,10 @@
     "url": "https://github.com/necccc/triangle-haiku/issues"
   },
   "homepage": "https://github.com/necccc/triangle-haiku#readme",
-  "devDependencies": {
+  "dependencies": {
+    "core-js": "^3.6.0",
+    "fabric": "^3.5.1",
+    "regenerator-runtime": "^0.13.3",
     "@babel/core": "^7.7.7",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-proposal-json-strings": "^7.7.4",
@@ -42,10 +45,5 @@
     "style-loader": "^1.0.2",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10"
-  },
-  "dependencies": {
-    "core-js": "^3.6.0",
-    "fabric": "^3.5.1",
-    "regenerator-runtime": "^0.13.3"
   }
 }
