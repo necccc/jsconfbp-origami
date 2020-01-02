@@ -1,19 +1,5 @@
-import { fabric } from 'fabric'
 import Grid from './grid'
 import pick from './pick'
-
-
-const renderSurrounding = (arr, grid, canvas) => {
-  arr.forEach(([a,b]) => {
-    const {x,y} = grid.coordsOf(a,b)
-    canvas.add(new fabric.Circle({
-      top: y -4,
-      left: x -4,
-      radius: 4,
-      fill: 'cyan'
-    }))
-  })
-}
 
 const getThirdPoint = (s2, grid, s1) => {
   const points = grid
@@ -28,23 +14,11 @@ const getThirdPoint = (s2, grid, s1) => {
 export const from = (x, y, grid, canvas) => {
   const s1 = [x, y]
 
-  // console.log('s1', s1);
-
   const id = Math.round((Math.random() * 1000000)).toString(32)
-
   // todo not to be so random
-
-  const kk = grid.getSurroundingPoints(x, y)
-  //console.log(kk);
-
-  const s2 = [...pick(kk)]
-
-  // console.log('s2', s2);
+  const s2 = [...pick(grid.getSurroundingPoints(x, y))]
 
   grid.addTo(...s1, [id, 's1', ...s2])
-
-  // grid.getSurroundingPoints(...s2)
-  //    filter hypotenuse crossing
 
   try {
     const s3 = [...pick(
@@ -52,12 +26,8 @@ export const from = (x, y, grid, canvas) => {
       )
     ]
 
-    // console.log('s3', s3);
-
     grid.addTo(...s2, [id, 's2', ...s3])
     grid.addTo(...s3, [id, 's3', ...s1])
-
-    // console.log(id, s1, s2, s3);
 
     return [s1, s2, s3]
   } catch (e) {
@@ -67,7 +37,6 @@ export const from = (x, y, grid, canvas) => {
     return from(...p, grid, canvas)
   }
 }
-
 
 const diff = (a1, a2) => {
   return [a1[0] - a2[0], a1[1] - a2[1]]

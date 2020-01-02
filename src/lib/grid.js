@@ -77,8 +77,6 @@ export default class Grid {
   }
 
   findPointingTo(x, y) {
-    //console.group(`findPointingTo ${x} ${y}` );
-
     const entries = this.values()
     const results = []
 
@@ -87,10 +85,6 @@ export default class Grid {
         results.push([entry.x, entry.y])
       }
     }
-
-    //console.log(results);
-    //console.groupEnd()
-//
     return results
   }
 
@@ -170,8 +164,6 @@ export default class Grid {
 
         // check if it crosses another existing hypotenuse
         if (Grid.isHypotenuse([x1,y1],[x2,y2])) {
-          //console.log('hypotenuse from', `${x1},${y1}`, 'to' ,`${x2},${y2}`)
-
           const [
             [xH1, yH1],
             [xH2, yH2]
@@ -195,11 +187,6 @@ export default class Grid {
   arePointsConnected([xH1, yH1],[xH2, yH2]) {
     const to1 = this.findPointingTo(xH1, yH1)
     const to2 = this.findPointingTo(xH2, yH2)
-
-//     console.group('arePointsConnected');
-//       console.log(to1.find(a => (a[0] === xH2 && a[1] === yH2)), !!to1.find(a => (a[0] === xH2 && a[1] === yH2)));
-//       console.log(to2.find(a => (a[0] === xH1 && a[1] === yH1)), !!to2.find(a => (a[0] === xH1 && a[1] === yH1)));
-//     console.groupEnd('arePointsConnected');
 
     return !!to1.find(a => (a[0] === xH2 && a[1] === yH2))
       || !!to2.find(a => (a[0] === xH1 && a[1] === yH1))
@@ -331,12 +318,6 @@ export default class Grid {
         }
       }
     }
-
-    //console.log('hypotenuse possible crossing',
-    //  [xH1, yH1],
-    //  [xH2, yH2]
-    //);
-
     return [[xH1, yH1], [xH2, yH2]]
   }
 
@@ -345,8 +326,6 @@ export default class Grid {
     (x1 === x2 && y2 === y1 + 2) ||
     (y1 === y2 && x1 === x2 + 1 ) ||
     (y1 === y2 && x2 === x1 + 1 )
-
-    //console.log(`isHypotenuse ${x1},${y1} ${x2},${y2} ==> ${result}`);
 
     return result
   }

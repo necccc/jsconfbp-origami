@@ -17,6 +17,7 @@ export default {
   canvas: {
     width: 1200,
     height: 1024,
+    backgroundColor: 'transparent'
   },
   grid: {
     x: 34,

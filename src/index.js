@@ -4,7 +4,6 @@ import './style.scss';
 
 import Origami from './lib'
 
-
 Origami()
   .then(svg => {
     document.querySelector('.svg').innerHTML = svg

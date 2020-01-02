@@ -4,47 +4,24 @@ import { create, get } from './grid'
 import * as triangle from './triangle'
 import settings from './settings'
 
-const pickColor = () => pick(settings.colors)
+const pickColor = (colors) => pick(colors)
 
 const toPolygonPoints = (...corners) => corners.reduce((arr, points) => {
   arr.push(points)
   return arr
 }, [])
 
+/*
 const animate = (startPoint, endPoints, polygon, canvas) => {
   const startPoints = [startPoint,startPoint,startPoint]
 
   const animatePoint = (index, prop, startValue, endValue) => new Promise((resolve, reject) => {
-
-    /* fabric.util.animate({
-      startValue,
-      endValue,
-      duration: 200,
-      onChange: function(value) {
-
-
-        polygon.points[index] = Object.assign({}, polygon.points[index])
-        polygon.points[index][prop] = value;
-
-//        console.log(index, prop, polygon.points[index][prop]);
-
-
-        if (prop === 'y') {
-          canvas.renderAll();
-        }
-      },
-      onComplete: function() {
-        polygon.setCoords();
-        resolve()
-      }
-    }) */
     polygon.points[index] = Object.assign({}, polygon.points[index])
     polygon.points[index][prop] = endValue;
-    //canvas.renderAll();
+    canvas.renderAll();
     polygon.setCoords();
     resolve()
     //setTimeout(() => resolve(), 40)
-
   })
 
   return Promise.all([
@@ -55,13 +32,11 @@ const animate = (startPoint, endPoints, polygon, canvas) => {
     animatePoint(2, 'y', endPoints[1].y, endPoints[2].y)
   ]))
 }
+ */
 
-
-const drawTriangleAt = (x, y, grid, canvas) => {
+const drawTriangleAt = (x, y, options, grid, canvas) => {
   return new Promise(async (resolve, reject) => {
     const [s1,s2,s3] = triangle.from(x, y, grid, canvas)
-
-    //console.log(s1, s2, s3);
 
     const s1c = grid.coordsOf(...s1)
     const s2c = grid.coordsOf(...s2)
@@ -75,8 +50,8 @@ const drawTriangleAt = (x, y, grid, canvas) => {
       objectCaching: false,
     }
 
-    if (settings.fill) {
-      const color = pickColor()
+    if (opts.fill) {
+      const color = pickColor(options.colors)
       opts.fill = color
       opts.stroke = 'transparent'
       opts.shadow = new fabric.Shadow({
@@ -87,7 +62,7 @@ const drawTriangleAt = (x, y, grid, canvas) => {
       })
     } else {
       opts.fill = 'transparent'
-      opts.stroke = pickColor()
+      opts.stroke = pickColor(options.colors)
     }
 
     const points = toPolygonPoints(s1c,s2c,s3c)
@@ -95,22 +70,20 @@ const drawTriangleAt = (x, y, grid, canvas) => {
       points,
       opts
     );
-    canvas.add(polygon)
 
-    setTimeout(() => resolve([s1,s2,s3]), 60)
+    canvas.add(polygon)
+    resolve([s1,s2,s3])
+    //setTimeout(() => resolve([s1,s2,s3]), 60)
   })
 }
 
-
-
 export default async function (options) {
+  const opts = Object.assign({}, settings, options)
 
+  const canvas = new fabric.Canvas('C', opts.canvas);
 
-
-  var canvas = new fabric.Canvas('C', settings.canvas);
-
-  const grid = create(settings.grid.x, settings.grid.y, {
-    size: settings.grid.edgeDistance
+  const grid = create(opts.grid.x, opts.grid.y, {
+    size: opts.grid.edgeDistance
   })
 
   // grid.debug(canvas);
@@ -137,7 +110,7 @@ export default async function (options) {
 
     try {
       // draw!
-      let c = await drawTriangleAt(...s, grid, canvas)
+      let c = await drawTriangleAt(...s, opts, grid, canvas)
 
       return c
     } catch (e) {
@@ -149,26 +122,17 @@ export default async function (options) {
           .filter(point => (point[0] !== c[0] && point[1] !== c[0]))
       )
 
-      let c = await drawTriangleAt(...s2, grid, canvas)
+      let c = await drawTriangleAt(...s2, opts, grid, canvas)
       return c
     }
   }
 
-
-  const P = Array(6).fill(0).reduce((P,i) => {
+  await Array(6).fill(0).reduce((P,i) => {
     return P.then(coords => asyncDraw(coords))
-  }, drawTriangleAt(...start, grid, canvas))
-
-  await P
+  }, drawTriangleAt(...start, opts, grid, canvas))
 
   return canvas.toSVG()
 }
-
-
-
-
-
-
 
 /*
 
