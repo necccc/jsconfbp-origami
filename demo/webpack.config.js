@@ -2,15 +2,12 @@ const path = require('path');
 const mode = process.env.NODE_ENV || 'development'
 const dev = mode === 'development'
 module.exports = {
-  entry: './src/index.js',
+  entry: './demo/index.js',
   watch: dev,
   mode,
   output: {
-    path: path.resolve(__dirname, 'cjs'),
-    filename: 'index.js'
-  },
-  externals: {
-    fabric: 'fabric'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
   module: {
     rules: [
