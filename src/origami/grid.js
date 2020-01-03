@@ -1,22 +1,10 @@
-import {fabric} from 'fabric'
+import { fabric } from 'fabric'
+import settings from './settings'
 
 const grids = {}
 const defaultOptions = {
   name: 'defaultGrid',
   size: 32,
-}
-
-export const create = (x, y, options) => {
-  const opt = Object.assign({}, defaultOptions, options)
-  const g = new Grid(x, y, opt)
-  grids[name] = g
-  return g
-}
-
-export const get = (name = 'defaultGrid') => {
-  if (!grids[name]) throw `No such Grid as "${name}"`
-
-  return grids[name]
 }
 
 export default class Grid {
@@ -328,5 +316,30 @@ export default class Grid {
     (y1 === y2 && x2 === x1 + 1 )
 
     return result
+  }
+
+  static createConfig (opts) {
+    const canvas = Object.assign({}, settings.canvas, opts.canvas || {})
+    const cfg = Object.assign({}, settings.grid, opts.grid || {})
+
+    if (!cfg.x || !cfg.y) {
+      cfg.x = Math.round(canvas.width / Math.sqrt(2 * (cfg.edgeDistance ** 2)))
+      cfg.y = Math.round(canvas.height / cfg.edgeDistance) - 1
+    }
+
+    return cfg
+  }
+
+  static createInstance (x, y, options) {
+    const opt = Object.assign({}, defaultOptions, options)
+    const g = new Grid(x, y, opt)
+    grids[name] = g
+    return g
+  }
+
+  static getInstance (name = 'defaultGrid') {
+    if (!grids[name]) throw `No such Grid as "${name}"`
+
+    return grids[name]
   }
 }

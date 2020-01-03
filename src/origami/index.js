@@ -1,15 +1,9 @@
 import { fabric } from 'fabric'
 import pick from './pick'
-import { create, get } from './grid'
-import * as triangle from './triangle'
+import Grid from './grid'
 import settings from './settings'
-
-const pickColor = (colors) => pick(colors)
-
-const toPolygonPoints = (...corners) => corners.reduce((arr, points) => {
-  arr.push(points)
-  return arr
-}, [])
+import drawTriangleAt from './draw'
+import getStartPoint from './get-start-point'
 
 /*
 const animate = (startPoint, endPoints, polygon, canvas) => {
@@ -34,61 +28,31 @@ const animate = (startPoint, endPoints, polygon, canvas) => {
 }
  */
 
-const drawTriangleAt = (x, y, options, grid, canvas) => {
-  return new Promise(async (resolve, reject) => {
-    const [s1,s2,s3] = triangle.from(x, y, grid, canvas)
-
-    const s1c = grid.coordsOf(...s1)
-    const s2c = grid.coordsOf(...s2)
-    const s3c = grid.coordsOf(...s3)
-
-    const opts = {
-      ...triangle.getPolygonZero(s1c, s2c, s3c),
-      stroke: 'purple',
-      fill: 'transparent',
-      selectable: false,
-      objectCaching: false,
-    }
-
-    if (opts.fill) {
-      const color = pickColor(options.colors)
-      opts.fill = color
-      opts.stroke = 'transparent'
-      opts.shadow = new fabric.Shadow({
-        color,
-        blur: 1,
-        offsetX: 0,
-        offsetY: 0,
-      })
-    } else {
-      opts.fill = 'transparent'
-      opts.stroke = pickColor(options.colors)
-    }
-
-    const points = toPolygonPoints(s1c,s2c,s3c)
-    const polygon = new fabric.Polygon(
-      points,
-      opts
-    );
-
-    canvas.add(polygon)
-    resolve([s1,s2,s3])
-    //setTimeout(() => resolve([s1,s2,s3]), 60)
-  })
-}
 
 export default async function (options) {
-  const opts = Object.assign({}, settings, options)
+  const opts = Object.assign({}, settings, options, {
+    canvas: Object.assign({}, settings.canvas, options.canvas || {}),
+    grid: Grid.createConfig(options)
+  })
 
-  const canvas = new fabric.Canvas('C', opts.canvas);
 
-  const grid = create(opts.grid.x, opts.grid.y, {
+  const C = document.createElement('canvas')
+  const canvas = new fabric.Canvas(C, opts.canvas);
+
+  const grid = Grid.createInstance(opts.grid.x, opts.grid.y, {
     size: opts.grid.edgeDistance
   })
 
-  // grid.debug(canvas);
+  if (opts.debug) {
+    console.log({
+      config: opts
+    });
 
-  const start = [5,6]
+    grid.debug(canvas)
+  }
+
+  const start = getStartPoint(opts)
+
   const notStart = (p) => (p[0] !== start[0] && p[1] !== start[1])
 
   const asyncDraw = async (prev) => {
@@ -130,6 +94,7 @@ export default async function (options) {
   await Array(6).fill(0).reduce((P,i) => {
     return P.then(coords => asyncDraw(coords))
   }, drawTriangleAt(...start, opts, grid, canvas))
+
 
   return canvas.toSVG()
 }

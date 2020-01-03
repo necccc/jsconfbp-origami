@@ -1,5 +1,5 @@
 {
-  "name": "triangle-haiku",
+  "name": "@jsconfbp/origami",
   "version": "1.0.0",
   "description": "",
   "main": "index.html",
@@ -26,8 +26,10 @@
   },
   "homepage": "https://github.com/necccc/triangle-haiku#readme",
   "dependencies": {
+    "fabric": "^3.5.1"
+  },
+  "devDependencies": {
     "core-js": "^3.6.0",
-    "fabric": "^3.5.1",
     "regenerator-runtime": "^0.13.3",
     "@babel/core": "^7.7.7",
     "@babel/plugin-proposal-class-properties": "^7.7.4",

@@ -20,9 +20,7 @@ export default {
     backgroundColor: 'transparent'
   },
   grid: {
-    x: 34,
-    //x: 3,
-    y: 24,
     edgeDistance: 64,
   },
+  start: [0,0]
 }
