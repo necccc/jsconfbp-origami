@@ -10,7 +10,7 @@
     "start": "npm run dev",
     "poststart": "npm stop",
     "stop": "docker-compose down",
-    "dev": "NODE_ENV=development npx webpack --config demo/webpack.config.js",
+    "dev": "NODE_ENV=development npm run build:demo",
     "build:demo": "npx webpack --config demo/webpack.config.js",
     "prebuild": "npm ci",
     "build": "NODE_ENV=production npx webpack --config ./webpack.config.js",

@@ -28,12 +28,43 @@ const animate = (startPoint, endPoints, polygon, canvas) => {
 }
  */
 
+
+const textBasedRandom = (text) => {
+  let index = 0
+  let counter = 0
+
+  return (array) => {
+    const rand = text.charCodeAt(index) % array.length
+
+    if (counter % 2 === 0) {
+      index += 1
+    }
+    counter += 1
+
+    if (!array[rand]) return pick(array)
+
+    return array[rand]
+  }
+}
+
 export default async function (options) {
   const opts = Object.assign({}, settings, options, {
+    random: pick,
     canvas: Object.assign({}, settings.canvas, options.canvas || {}),
     grid: Grid.createConfig(options)
   })
 
+  if (opts.fromText) {
+    opts.random = textBasedRandom(opts.fromText)
+  }
+
+  if (opts.triangles && opts.fromText && (opts.fromText.length / 2) < opts.triangles) {
+    opts.triangles = Math.floor((opts.fromText.length) / 2)
+  }
+
+  if (!opts.triangles) {
+    opts.triangles = Math.floor((opts.fromText.length) / 2) - 1
+  }
 
   const C = document.createElement('canvas')
   const canvas = new fabric.Canvas(C, opts.canvas);
@@ -57,16 +88,16 @@ export default async function (options) {
   const asyncDraw = async (prev) => {
     // pick a point from last drawn tringle
     // which is not filled
-    let s = pick(
+    let s = opts.random(
       prev.filter(k => (grid.contentOf(...k).length < 4))
     )
 
     // no points avail,
     // pick one of the surrounding ones
     if (!s) {
-      s = pick(
+      s = opts.random(
         grid
-          .getSurroundingPoints(...pick(prev.filter(notStart)))
+          .getSurroundingPoints(...opts.random(prev.filter(notStart)))
           .filter(notStart)
       )
     }
@@ -78,9 +109,9 @@ export default async function (options) {
       return c
     } catch (e) {
       // failed to draw, try again
-      const s2 = pick(
+      const s2 = opts.random(
         grid
-          .getSurroundingPoints(...pick(c))
+          .getSurroundingPoints(...opts.random(c))
           .filter(notStart)
           .filter(point => (point[0] !== c[0] && point[1] !== c[0]))
       )
@@ -90,7 +121,7 @@ export default async function (options) {
     }
   }
 
-  await Array(6).fill(0).reduce((P,i) => {
+  await Array(opts.triangles - 1).fill(0).reduce((P,i) => {
     return P.then(coords => asyncDraw(coords))
   }, drawTriangleAt(...start, opts, grid, canvas))
 

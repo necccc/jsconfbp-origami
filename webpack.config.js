@@ -1,6 +1,7 @@
 const path = require('path');
 const mode = process.env.NODE_ENV || 'development'
 const dev = mode === 'development'
+
 module.exports = {
   entry: './src/index.js',
   watch: dev,

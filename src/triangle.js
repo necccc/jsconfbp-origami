@@ -1,5 +1,4 @@
 import Grid from './grid'
-import pick from './pick'
 
 const getThirdPoint = (s2, grid, s1) => {
   const points = grid
@@ -11,17 +10,17 @@ const getThirdPoint = (s2, grid, s1) => {
   return points
 }
 
-export const from = (x, y, grid, canvas) => {
+export const from = (x, y, options, grid, canvas) => {
   const s1 = [x, y]
 
   const id = Math.round((Math.random() * 1000000)).toString(32)
   // todo not to be so random
-  const s2 = [...pick(grid.getSurroundingPoints(x, y))]
+  const s2 = [...options.random(grid.getSurroundingPoints(x, y))]
 
   grid.addTo(...s1, [id, 's1', ...s2])
 
   try {
-    const s3 = [...pick(
+    const s3 = [...options.random(
         getThirdPoint(s2, grid, s1)
       )
     ]
@@ -33,8 +32,8 @@ export const from = (x, y, grid, canvas) => {
   } catch (e) {
     // find grid points with least members & start over
 
-    const p = pick(grid.getLeastOccupied())
-    return from(...p, grid, canvas)
+    const p = options.random(grid.getLeastOccupied())
+    return from(...p, options, grid, canvas)
   }
 }
 

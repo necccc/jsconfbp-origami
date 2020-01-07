@@ -333,7 +333,7 @@ export default class Grid {
   static createInstance (x, y, options) {
     const opt = Object.assign({}, defaultOptions, options)
     const g = new Grid(x, y, opt)
-    grids[name] = g
+    grids[opt.name] = g
     return g
   }
 

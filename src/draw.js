@@ -1,17 +1,18 @@
 import { fabric } from 'fabric'
 import * as triangle from './triangle'
-import pick from './pick'
 
 const toPolygonPoints = (...corners) => corners.reduce((arr, points) => {
   arr.push(points)
   return arr
 }, [])
 
-const pickColor = (colors) => pick(colors)
 
 export default (x, y, options, grid, canvas) => {
+
+  const pickColor = (colors) => options.random(colors)
+
   return new Promise(async (resolve, reject) => {
-    const [s1,s2,s3] = triangle.from(x, y, grid, canvas)
+    const [s1,s2,s3] = triangle.from(x, y, options, grid, canvas)
 
     const s1c = grid.coordsOf(...s1)
     const s2c = grid.coordsOf(...s2)

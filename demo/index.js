@@ -27,15 +27,16 @@ const colors = [
 ] */
 
 const canvas = {
-  width: 300,
-  height: 1000
+  width: 1000,
+  height: 400
 }
 
-Origami({
-  colors,
-  canvas,
-  start: 'center left'
-})
+  Origami({
+    colors,
+    canvas,
+    fromText: 'Code of Conduct of JSConf Budapest',
+    start: 'bottom right'
+  })
   .then(svg => {
     document.querySelector('.svg').innerHTML = svg
   })
