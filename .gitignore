@@ -105,4 +105,4 @@ dist
 .tern-port
 .DS_Store
 
-cjs/index.js
+lib/cjs/index.js

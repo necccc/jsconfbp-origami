@@ -1,0 +1,30 @@
+.display {
+  position: absolute;
+  z-index: 2;
+  top: 2rem;
+  left: 4rem;
+  color: var(--display-color);
+
+  font-size: 2rem;
+
+  max-width: 24rem;
+  text-align: left;
+
+  background: rgba(253, 253, 253, .8);
+  //box-shadow: 0 0 20px 10px red;
+  box-shadow: 0 0 20px 10px rgba(253, 253, 253, .8);
+
+  .quote {
+    position: absolute;
+    font-size: 4rem;
+    opacity: .5;
+
+    &.start {
+      left: -2rem;
+      top: -1.3rem;
+    }
+    &.end {
+      transform: translate(.5rem, 1rem);
+    }
+  }
+}

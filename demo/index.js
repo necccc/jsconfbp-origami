@@ -2,7 +2,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 import './style.scss';
 
-import Origami from '../src'
+import Origami from '../lib/src'
 
 const colors = [
   '#DB69FF',
@@ -35,10 +35,13 @@ const canvas = {
     colors,
     canvas,
     fromText: 'Code of Conduct of JSConf Budapest',
-    start: 'bottom right'
+    start: 'center center'
   })
-  .then(svg => {
-    document.querySelector('.svg').innerHTML = svg
+  .then(points => {
+    // document.querySelector('.svg').innerHTML = svg
+
+    console.log(points);
+
   })
   .catch((e) => {
     console.error(e);

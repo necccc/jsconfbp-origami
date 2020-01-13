@@ -14,7 +14,7 @@
     "build:demo": "npx webpack --config demo/webpack.config.js",
     "prebuild": "npm ci",
     "build": "NODE_ENV=production npx webpack --config ./webpack.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jest"
   },
   "repository": {
     "type": "git",
@@ -31,8 +31,6 @@
     "fabric": "^3.5.1"
   },
   "devDependencies": {
-    "core-js": "^3.6.0",
-    "regenerator-runtime": "^0.13.3",
     "@babel/core": "^7.7.7",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-proposal-json-strings": "^7.7.4",
@@ -43,8 +41,12 @@
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-stage-3": "^7.0.0",
     "babel-loader": "^8.0.6",
+    "babel-jest": "^24.9.0",
+    "core-js": "^3.6.0",
     "css-loader": "^3.4.0",
+    "jest": "^24.9.0",
     "node-sass": "^4.13.0",
+    "regenerator-runtime": "^0.13.3",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.2",
     "webpack": "^4.41.4",
