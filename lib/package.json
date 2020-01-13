@@ -5,17 +5,6 @@
   "type": "module",
   "main": "src/index.js",
   "module": "src/index.js",
-  "scripts": {
-    "prestart": "docker-compose up -d",
-    "start": "npm run dev",
-    "poststart": "npm stop",
-    "stop": "docker-compose down",
-    "dev": "NODE_ENV=development npm run build:demo",
-    "build:demo": "npx webpack --config demo/webpack.config.js",
-    "prebuild": "npm ci",
-    "build": "NODE_ENV=production npx webpack --config ./webpack.config.js",
-    "test": "npx jest"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/necccc/triangle-haiku.git"
@@ -27,9 +16,6 @@
     "url": "https://github.com/necccc/triangle-haiku/issues"
   },
   "homepage": "https://github.com/necccc/triangle-haiku#readme",
-  "dependencies": {
-    "fabric": "^3.5.1"
-  },
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/plugin-proposal-class-properties": "^7.7.4",

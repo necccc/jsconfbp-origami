@@ -1,0 +1,30 @@
+{
+  "name": "@jsconfbp/origami",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "presetup": "cp ./lib/src/* ./site/src/lib",
+    "setup": "cd ./site && npm ci",
+    "start": "npm run setup && cd ./site && npm start",
+    "sitebuild": "npm run setup && cd ./site && npm run build",
+
+    "prebuild": "cd ./lib && npm ci",
+    "build": "cd ./lib && NODE_ENV=production npx webpack --config ./webpack.config.js",
+    "test": "npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/necccc/triangle-haiku.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/necccc/triangle-haiku/issues"
+  },
+  "homepage": "https://github.com/necccc/triangle-haiku#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
