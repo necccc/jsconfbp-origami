@@ -339,7 +339,7 @@ module.exports = function(webpackEnv) {
                 formatter: require.resolve('react-dev-utils/eslintFormatter'),
                 eslintPath: require.resolve('eslint'),
                 resolvePluginsRelativeTo: __dirname,
-                
+
               },
               loader: require.resolve('eslint-loader'),
             },
@@ -372,8 +372,19 @@ module.exports = function(webpackEnv) {
                 customize: require.resolve(
                   'babel-preset-react-app/webpack-overrides'
                 ),
-                
+
                 plugins: [
+                  require.resolve("@babel/plugin-transform-regenerator"),
+                  require.resolve("@babel/plugin-syntax-dynamic-import"),
+                  require.resolve("@babel/plugin-syntax-import-meta"),
+                  require.resolve("@babel/plugin-proposal-private-methods"),
+                  [
+                    require.resolve("@babel/plugin-proposal-class-properties"),
+                    {
+                      "loose": false
+                    }
+                  ],
+                  require.resolve("@babel/plugin-proposal-json-strings"),
                   [
                     require.resolve('babel-plugin-named-asset-import'),
                     {
@@ -411,10 +422,23 @@ module.exports = function(webpackEnv) {
                     { helpers: true },
                   ],
                 ],
+                plugins: [
+                  require.resolve("@babel/plugin-transform-regenerator"),
+                  require.resolve("@babel/plugin-syntax-dynamic-import"),
+                  require.resolve("@babel/plugin-syntax-import-meta"),
+                  require.resolve("@babel/plugin-proposal-private-methods"),
+                  [
+                    require.resolve("@babel/plugin-proposal-class-properties"),
+                    {
+                      "loose": false
+                    }
+                  ],
+                  require.resolve("@babel/plugin-proposal-json-strings"),
+                ],
                 cacheDirectory: true,
                 // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
-                
+
                 // Babel sourcemaps are needed for debugging into node_modules
                 // code.  Without the options below, debuggers like VSCode
                 // show incorrect code and set breakpoints on the wrong lines.

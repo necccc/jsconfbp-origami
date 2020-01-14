@@ -11,8 +11,7 @@ export default ({ fromText }) => {
 
 
   useEffect(() => {
-
-    setColors(pick([
+    const colrs = pick([
       [
         '#DB69FF',
         '#A25FE8',
@@ -33,9 +32,9 @@ export default ({ fromText }) => {
         '#0CE89F',
         '#0DFF6A',
       ],
-    ]))
-
-
+    ])
+    setColors(colrs)
+    document.documentElement.style.setProperty('--display-color', pick(colrs));
   }, [false])
 
   useEffect(() => {
@@ -46,13 +45,12 @@ export default ({ fromText }) => {
 
     if (fromText.length > 0) {
       Origami({
-        debug: true,
+        //debug: true,
         colors,
         canvas,
         fromText,
         start: 'center center'
       }).then(result => {
-        document.documentElement.style.setProperty('--display-color', result[0].color);
         setTriangles(result)
       })
       .catch((e) => {
@@ -68,8 +66,9 @@ export default ({ fromText }) => {
     <div className="triangles">
       <Stage width={window.innerWidth} height={window.innerHeight}>
         <Layer>
-          { triangles.map(triangle => (
+          { triangles.map((triangle, i) => (
             <Line
+              key={ `triangle-${i}` }
               points={ triangle.points.reduce((arr, points) => arr.concat(points.x, points.y), []) }
               fill={ triangle.color }
               stroke={ triangle.color }

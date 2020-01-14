@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "presetup": "rm -f ./site/src/lib && ln -s \"$(pwd)/lib/src\" \"$(pwd)/site/src/lib\"",
-    "setup": "cd ./site && npm ci",
+    "setup": "cd ./site && npm i",
     "start": "npm run setup && cd ./site && npm start",
     "sitebuild": "npm run setup && cd ./site && npm run build",
 

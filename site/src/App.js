@@ -1,26 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Triangles from './Triangles'
-import Input from './Input'
 import Display from './Display'
 import Welcome from './Welcome'
 
 import './App.scss';
 
 export default () => {
-  const [text, setText] = useState('')
+  const [text, setText] = useState([])
 
   const onKeyDown = (e) => {
-    console.log(e.keyCode);
+    const arr = Array.from(text)
 
+    if (
+      e.metaKey
+      || e.key === "Shift"
+      || e.key === "Escape"
+      || e.key === "Alt"
+      || e.key === "Control"
+      || e.key.includes('Arrow')
+    ) return;
+
+    if (
+      "Backspace" === e.key
+    ) {
+      arr.pop()
+      setText(arr)
+      return;
+    }
+
+    if (
+      "Enter" === e.key
+    ) {
+      arr.push("\n")
+      setText(arr)
+      return;
+    }
+
+    arr.push(e.key)
+    setText(arr)
   }
+
+  useEffect(() => {
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  });
 
   return (
     <div className="App" onKeyDown={ onKeyDown }>
-      <Welcome text={text} />
-      <Triangles fromText={ text } />
+      <Welcome text={ text } />
+      <Triangles fromText={ text.join('') } />
       <Display text={ text } />
-      <Input onChange={ t => setText(t) } />
     </div>
   );
 }
