@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "presetup": "cp ./lib/src/* ./site/src/lib",
+    "presetup": "rm -f ./site/src/lib && ln -s \"$(pwd)/lib/src\" \"$(pwd)/site/src/lib\"",
     "setup": "cd ./site && npm ci",
     "start": "npm run setup && cd ./site && npm start",
     "sitebuild": "npm run setup && cd ./site && npm run build",
