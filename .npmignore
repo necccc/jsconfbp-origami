@@ -1,5 +1,5 @@
-demo
-nginx-https
+site
 .editorconfig
-docker-compose.yml
 webpack.config.js
+babel.config.js
+*.test.js
