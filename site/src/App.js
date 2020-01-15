@@ -11,13 +11,30 @@ export default () => {
 
   const onKeyDown = (e) => {
     const arr = Array.from(text)
-
+    const ignore = [
+      "Shift",
+      "Escape",
+      "Esc",
+      "Alt",
+      "Control",
+      "Tab",
+      "CapsLock",
+      "Delete",
+      "Left",
+      "Right",
+      "Up",
+      "Down",
+      "End",
+      "Home",
+      "PageDown",
+      "PageUp",
+      "Clear",
+      "Insert",
+      "Unidentified",
+    ]
     if (
       e.metaKey
-      || e.key === "Shift"
-      || e.key === "Escape"
-      || e.key === "Alt"
-      || e.key === "Control"
+      || ignore.includes(e.key)
       || e.key.includes('Arrow')
     ) return;
 
